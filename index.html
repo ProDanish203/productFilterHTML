@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Filter Section</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+        /* font-family: 'Roboto', sans-serif; */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        /* font-family: 'Poppins', sans-serif; */
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: .2s;
+            font-family: 'Poppins', sans-serif; 
+            text-transform: capitalize;
+            text-decoration: none;
+            list-style: none;
+        }
+        html{
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        body{
+            overflow-x: hidden;
+            min-height: 100vh;
+	        width: 100%;
+        }
+        :root{
+            --primary-color: #65f;
+        }
+        .container{
+            max-width: 1300px;
+            margin-top: 40px;
+            padding: 20px 50px;
+            margin: 0 auto;
+        }
+        .title h1{
+            margin-top: 20px;
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            text-align: center;
+            text-shadow: 0 2px 5px #65f;
+        }
+        .filter-btns{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .filter-btn{
+            padding: 10px 50px;
+            margin-right: 10px;
+            background: transparent;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--primary-color);
+            box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        .filter-btn.active-btn{
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+        .filter-btn:hover{
+            box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+        }
+        .filter-items{
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+            gap: 20px;
+            position: relative;
+            margin-top: 40px;
+        }
+        .filter-item{
+            position: relative;
+            border: 1px solid #ccc;
+            overflow: hidden;
+            min-height: 350px;
+            animation: fadeIn 1s;
+        }
+        @keyframes fadeIn {
+            from{
+                opacity: 0;
+            }to{
+                opacity: 1;
+            }
+        }
+        .filter-item .item-img{
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+        }
+        .filter-item .item-img img{
+            object-fit: cover;
+            width: 350px;
+            height: 200px;
+        }
+        .filter-item .item-img .discount{
+            position: absolute;
+            top: 20px;
+            left: -20px;
+            background-color: var(--primary-color);
+            color: #fff;
+            width: 100px;
+            rotate:45deg;
+        }
+        .filter-item .item-img:hover .discount{
+            rotate: 0deg;
+        }
+        .filter-item .item-img:hover img{
+            scale: 1.10;
+        }
+        .item-info{
+            margin-left: 10px;
+        }
+        .add-btn{
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 6px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-btn:hover{
+            letter-spacing: 1.5px;
+        }
+        .item-info .product-title{
+            font-size: 22px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            color: var(--primary-color);
+        }
+        .item-info div{
+            margin: 10px auto 20px;
+        }
+        .item-info div .old-price{
+            text-decoration:2px line-through var(--primary-color);
+            font-size: 14px;
+        }
+        .item-info div .new-price{
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    
+
+
+    <div class="wrapper">
+
+        <div class="category-filter">
+            <div class="container">
+                
+                <div class="title">
+                    <h1>Featured Products</h1>
+                </div>
+
+                <div class="filter-btns">
+                    <button type="button" class="filter-btn" id="all">All</button>
+                    <button type="button" class="filter-btn" id="shoe">Shoes</button>
+                    <button type="button" class="filter-btn" id="watch">Watches</button>
+                    <button type="button" class="filter-btn" id="shirt">Shirts</button>
+                </div>
+
+
+                <div class="filter-items">
+
+                    <div class="filter-item all shoe">
+
+                        <div class="item-img">
+                            <img src="img/shoe1.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shirt">
+
+                        <div class="item-img">
+                            <img src="img/shirt1.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shirt">
+
+                        <div class="item-img">
+                            <img src="img/shirt2.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shoe">
+
+                        <div class="item-img">
+                            <img src="img/shoe2.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all watch">
+
+                        <div class="item-img">
+                            <img src="img/watch2.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shirt">
+
+                        <div class="item-img">
+                            <img src="img/shirt3.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shoe">
+
+                        <div class="item-img">
+                            <img src="img/shoe4.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shoe">
+
+                        <div class="item-img">
+                            <img src="img/shoe5.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all watch">
+
+                        <div class="item-img">
+                            <img src="img/watch4.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shirt">
+
+                        <div class="item-img">
+                            <img src="img/shirt5.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all watch">
+
+                        <div class="item-img">
+                            <img src="img/watch5.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shoe">
+
+                        <div class="item-img">
+                            <img src="img/shoe8.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shoe">
+
+                        <div class="item-img">
+                            <img src="img/shoe10.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                    <div class="filter-item all shirt">
+
+                        <div class="item-img">
+                            <img src="img/shirt7.png" alt="item image">
+                            <span class="discount">20%</span>
+                        </div>
+
+                        <div class="item-info">
+                            <p class="product-title">Product Title</p>
+                            <div>
+                                <span class="old-price">$20.00</span>
+                                <span class="new-price">$18.00</span>
+                            </div>
+                            <a href="#" class="add-btn">Add To Cart</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <script>
+
+        const allFilterItems = document.querySelectorAll(".filter-item");
+        const allFilterBtns = document.querySelectorAll(".filter-btn");
+
+        window.addEventListener("DOMContentLoaded", () => {
+            allFilterBtns[0].classList.add("active-btn");
+        })
+
+        allFilterBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                showFilteredContent(btn);
+            });
+        }); 
+
+        function showFilteredContent(btn){
+           allFilterItems.forEach((item) => {
+                if(item.classList.contains(btn.id)){
+                    resetActiveBtn();
+                    btn.classList.add("active-btn");
+                    item.style.display = "block";
+                }else{
+                    item.style.display = "none";
+                }
+           }); 
+        }
+        function resetActiveBtn(){
+            allFilterBtns.forEach((btn) => {
+                btn.classList.remove("active-btn");
+            });
+        }
+
+    </script>
+
+    <script src="https://kit.fontawesome.com/c35a4020ae.js" crossorigin="anonymous"></script>
+</body>
+</html>
